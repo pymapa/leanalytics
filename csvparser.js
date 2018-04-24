@@ -11,5 +11,6 @@ exports.parseCsvToJson = async (pathToFile) => {
     })
     .on("done", error => {
       console.log("end");
+      console.log(error);
     });
 }
