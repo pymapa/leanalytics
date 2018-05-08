@@ -5,7 +5,7 @@ const condition = row => {
   // Implement filtering conditions here
 };
 
-exports.filterSubmissions = json => {
-  const filtered = json.filter(condition);
-  return filtered;
+exports.filterSubmissions = dataObj => {
+  const filteredSubmissions = dataObj.submissions.filter(condition);
+  return filteredSubmissions;
 };

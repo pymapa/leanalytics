@@ -19,11 +19,11 @@ async function execute() {
   console.log("starting program execution");
   await parseFiles();
   console.log("parsing completed");
-  // console.log(console.log(submissions1Json));
-  // filterSubmissions(submissions1Json);
-  // runController();
   const dataObj = controller.createDataObj(submissions1Json, submissions2Json, assignmentsJson, backgroundVariablesJson);
-  plotter.plot(dataObj);
+  // console.log(console.log(submissions1Json));
+  filterSubmissions(dataObj);
+  // runController();
+  // plotter.plot(dataObj);
 }
 
 async function parseFiles() {
@@ -38,8 +38,8 @@ async function parseFiles() {
   // ]);
 }
 
-const filterSubmissions = async () => {
-  await Promise.all([filter.filterSubmissions(submissions1Json)]);
+const filterSubmissions = async (dataObj) => {
+  return await Promise.all([filter.filterSubmissions(dataObj)]);
 };
 
 const runController = () => {
