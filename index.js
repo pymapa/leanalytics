@@ -1,3 +1,18 @@
+const express = require("express");
+var app = express();
+
+const router = express.Router();
+
+router.get("/data", async (req, res) => {
+  const result = await execute();
+  res.json({ data: result });
+});
+
+app.use("/api", router);
+
+app.listen(3001);
+
+// execute();
 const parser = require("./csvparser");
 const filter = require("./filter");
 const controller = require("./controller");
@@ -13,8 +28,6 @@ let submissions1Json = [];
 let submissions2Json = [];
 let backgroundVariablesJson = [];
 
-execute();
-
 async function execute() {
   console.log("starting program execution");
   await parseFiles();
@@ -28,8 +41,10 @@ async function execute() {
   // console.log(console.log(submissions1Json));
   const filteredObj = filterSubmissions(dataObj);
   let handledObj = runController(filteredObj);
-  console.log(handledObj.submissions[5]);
+  console.log(handledObj.selfEval1[5]);
+  console.log(handledObj.selfEval3[5]);
   // plotter.plot(dataObj);
+  return handledObj;
 }
 
 async function parseFiles() {
@@ -48,10 +63,13 @@ const filterSubmissions = dataObj => {
   return { ...dataObj, submissions: filter.filterSubmissions(dataObj) };
 };
 
-const runController = (filteredObj) => {
-  let handledObj = {...filteredObj};
+const runController = filteredObj => {
+  let handledObj = { ...filteredObj };
   // submissions1Json = controller.calculateData(submissions1Json);
-  handledObj.submissions = controller.joinSubmissionAndSelfEvaluation(filteredObj.submissions, filteredObj.backgroundVariables);
-  
-  return handledObj;
+  handledObj.submissions = controller.joinSubmissionAndSelfEvaluation(
+    filteredObj.submissions,
+    filteredObj.backgroundVariables
+  );
+  const divided = controller.divideBySelfEval(handledObj);
+  return divided;
 };

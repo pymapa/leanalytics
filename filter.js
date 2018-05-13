@@ -8,6 +8,5 @@ const condition = row => {
 
 exports.filterSubmissions = dataObj => {
   const filteredSubmissions = dataObj.submissions.filter(condition);
-  console.log(filteredSubmissions.length)
   return filteredSubmissions;
 };

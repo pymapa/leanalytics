@@ -37,7 +37,7 @@ exports.divideBySelfEval = (dataObj) => {
   result.selfEval3 = [];
   result.selfEval4 = [];
   result.selfEval5 = [];
-  dataObj.submission.forEach(submission => {
+  dataObj.submissions.forEach(submission => {
     switch(submission.self_eval) {
       case '1':
         result.selfEval1.push(submission);

@@ -8,9 +8,6 @@ exports.parseCsvToJson = pathToFile => {
     .fromFile(pathToFile)
     .on("json", jsonObj => {
       json.push(jsonObj);
-      // combine csv header row and csv line to a json object
-      // jsonObj.a ==> 1 or 4
-      // console.log(json);
     })
     .on("done", error => {
       console.log(pathToFile + " parsed.");
