@@ -1,39 +1,54 @@
-import React, { Component } from 'react';
-import './App.css';
-import Chart from './Chart';
+import React, { Component } from "react";
+import "./App.css";
+import Chart from "./Chart";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      data: {submissions: []}
-    }
+      data: {
+        submissions: [],
+        selfEval1: [],
+        selfEval2: [],
+        selfEval3: [],
+        selfEval4: [],
+        selfEval5: []
+      },
+      dataLoaded: false
+    };
     this.fetchData = this.fetchData.bind(this);
   }
   componentDidMount() {
-      this.fetchData();
+    this.fetchData();
   }
 
   fetchData() {
-    fetch('/api/data')
-    .then(result => {
-      result.json()
-      .then(json => {
-        console.log('data loaded');
-        this.setState({data: json.data});
+    fetch("/api/data")
+      .then(result => {
+        result.json().then(json => {
+          console.log("data loaded");
+          this.setState({ data: json.data });
+          this.setState({ dataLoaded: true });
+        });
       })
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
-    return (
+    if (this.state.dataLoaded) {
+      return <Chart data={this.state.data} />;
+    } else {
+      return (
+        <h1>Loading...</h1>
+      )
+    }
+    /* return (
       <div>
-        <Chart data={this.state.data} />
+          <Chart data={this.state.data} />
       </div>
-    );
+    ); */
   }
 }
 
