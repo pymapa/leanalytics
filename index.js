@@ -27,8 +27,8 @@ async function execute() {
   );
   // console.log(console.log(submissions1Json));
   const filteredObj = filterSubmissions(dataObj);
-  console.log(filteredObj.submissions.length);
-  // runController();
+  let handledObj = runController(filteredObj);
+  console.log(handledObj.submissions[5]);
   // plotter.plot(dataObj);
 }
 
@@ -48,6 +48,10 @@ const filterSubmissions = dataObj => {
   return { ...dataObj, submissions: filter.filterSubmissions(dataObj) };
 };
 
-const runController = () => {
-  submissions1Json = controller.calculateData(submissions1Json);
+const runController = (filteredObj) => {
+  let handledObj = {...filteredObj};
+  // submissions1Json = controller.calculateData(submissions1Json);
+  handledObj.submissions = controller.joinSubmissionAndSelfEvaluation(filteredObj.submissions, filteredObj.backgroundVariables);
+  
+  return handledObj;
 };
