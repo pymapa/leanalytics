@@ -1,18 +1,27 @@
 const express = require("express");
-var app = express();
+const app = express();
 
 const router = express.Router();
+const dbHelper = require('./db')
 
 router.get("/data", async (req, res) => {
-  const result = await execute();
-  res.json({ data: result });
+  const db = dbHelper.getDatabase()
+  dbHelper.fetchCombinedStudentData(db)
+    .then(rows => {
+      console.log(rows.length)
+      res.json({ data: rows });
+    })
+    .catch(reason => {
+      console.error(reason)
+    })
+    .then(() => dbHelper.closeDatabase(db))
+
 });
 
 app.use("/api", router);
 
 app.listen(3001);
 
-// execute();
 const parser = require("./csvparser");
 const filter = require("./filter");
 const controller = require("./controller");
@@ -66,10 +75,13 @@ const filterSubmissions = dataObj => {
 const runController = filteredObj => {
   let handledObj = { ...filteredObj };
   // submissions1Json = controller.calculateData(submissions1Json);
-  handledObj.submissions = controller.joinSubmissionAndSelfEvaluation(
-    filteredObj.submissions,
-    filteredObj.backgroundVariables
-  );
+  // handledObj.submissions = controller.joinSubmissionAndSelfEvaluation(
+  //   filteredObj.submissions,
+  //   filteredObj.backgroundVariables
+  // );
   const divided = controller.divideBySelfEval(handledObj);
   return divided;
 };
+
+// execute();
+

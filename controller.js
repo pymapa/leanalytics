@@ -1,8 +1,8 @@
-exports.calculateData = dataObj => {
+const calculateData = dataObj => {
   return submissions;
 };
 
-exports.createDataObj = (
+const createDataObj = (
   submissions1,
   submissions2,
   assignments,
@@ -15,23 +15,23 @@ exports.createDataObj = (
   return obj;
 };
 
-exports.joinSubmissionAndSelfEvaluation = (
+const joinSubmissionAndSelfEvaluation = (
   submissions,
   backgroundVariables
 ) => {
   let joinedData = submissions.map(submission => {
-      backgroundVariables.forEach(variable => {
-        if(submission.user_id === variable.user_id) {
-          submission.self_eval = variable.self_eval;
-        }
-      });
-     return submission; 
+    backgroundVariables.forEach(variable => {
+      if(submission.user_id === variable.user_id) {
+        submission.self_eval = variable.self_eval;
+      }
+    });
+    return submission;
   });
   return joinedData;
 };
 
-exports.divideBySelfEval = (dataObj) => {
-  let result = {...dataObj};
+const divideBySelfEval = (dataObj) => {
+  let result = { ...dataObj };
   result.selfEval1 = [];
   result.selfEval2 = [];
   result.selfEval3 = [];
@@ -59,4 +59,11 @@ exports.divideBySelfEval = (dataObj) => {
     }
   })
   return result;
+}
+
+module.exports = {
+  calculateData,
+  createDataObj,
+  joinSubmissionAndSelfEvaluation,
+  divideBySelfEval
 }

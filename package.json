@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "csvtojson": "^1.1.9",
     "express": "^4.16.3",
+    "nodemon": "^1.17.4",
     "plotly": "^1.0.6",
-    "sqlite3": "^4.0.0"
+    "sqlite3": "^4.0.0",
+    "yarn": "^1.6.0"
   }
 }
