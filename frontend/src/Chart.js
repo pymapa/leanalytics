@@ -4,27 +4,27 @@ import { Scatter } from "react-chartjs-2";
 class Chart extends Component {
   getData1() {
     return this.props.data.selfEval1.map(submission => {
-      return { x: submission.assig_id, y: submission.score };
+      return { x: submission.assign_id, y: submission.score };
     });
   }
   getData2() {
     return this.props.data.selfEval2.map(submission => {
-      return { x: submission.assig_id, y: submission.score };
+      return { x: submission.assign_id, y: submission.score };
     });
   }
   getData3() {
     return this.props.data.selfEval3.map(submission => {
-      return { x: submission.assig_id, y: submission.score };
+      return { x: submission.assign_id, y: submission.score };
     });
   }
   getData4() {
     return this.props.data.selfEval4.map(submission => {
-      return { x: submission.assig_id, y: submission.score };
+      return { x: submission.assign_id, y: submission.score };
     });
   }
   getData5() {
     return this.props.data.selfEval5.map(submission => {
-      return { x: submission.assig_id, y: submission.score };
+      return { x: submission.assign_id, y: submission.score };
     });
   }
   render() {

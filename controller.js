@@ -31,7 +31,7 @@ const joinSubmissionAndSelfEvaluation = (
 };
 
 const divideBySelfEval = (dataObj) => {
-  let result = { ...dataObj };
+  let result = { };
   result.selfEval1 = [];
   result.selfEval2 = [];
   result.selfEval3 = [];
@@ -39,19 +39,19 @@ const divideBySelfEval = (dataObj) => {
   result.selfEval5 = [];
   dataObj.submissions.forEach(submission => {
     switch(submission.self_eval) {
-      case '1':
+      case 1:
         result.selfEval1.push(submission);
         break;
-      case '2':
+      case 2:
         result.selfEval2.push(submission);
         break;
-      case '3':
+      case 3:
         result.selfEval3.push(submission);
         break;
-      case '4':
+      case 4:
         result.selfEval4.push(submission);
         break;
-      case '5':
+      case 5:
         result.selfEval5.push(submission);
         break;
       default:

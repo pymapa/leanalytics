@@ -9,7 +9,11 @@ router.get("/data", async (req, res) => {
   dbHelper.fetchCombinedStudentData(db)
     .then(rows => {
       console.log(rows.length)
-      res.json({ data: rows });
+      res.json({
+        data: {
+          ...controller.divideBySelfEval({submissions: rows})
+        }
+      });
     })
     .catch(reason => {
       console.error(reason)
@@ -74,11 +78,6 @@ const filterSubmissions = dataObj => {
 
 const runController = filteredObj => {
   let handledObj = { ...filteredObj };
-  // submissions1Json = controller.calculateData(submissions1Json);
-  // handledObj.submissions = controller.joinSubmissionAndSelfEvaluation(
-  //   filteredObj.submissions,
-  //   filteredObj.backgroundVariables
-  // );
   const divided = controller.divideBySelfEval(handledObj);
   return divided;
 };

@@ -37,18 +37,13 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.dataLoaded) {
+    if(this.state.dataLoaded) {
       return <Chart data={this.state.data} />;
-    } else {
-      return (
-        <h1>Loading...</h1>
-      )
     }
-    /* return (
-      <div>
-          <Chart data={this.state.data} />
-      </div>
-    ); */
+    return (
+      <h1>Loading...</h1>
+    )
+
   }
 }
 
