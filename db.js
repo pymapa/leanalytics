@@ -43,9 +43,14 @@ const rawQuery = db => sql => new Promise(resolve => {
   });
 })
 
+const combinedStudentDataSQL =`SELECT MAX(s.score) AS score, submission_id, assign_id, max_points, s.user_id, MIN(time_on_task)
+FROM submission s LEFT JOIN background_variables bv ON s.user_id =  bv.user_id
+LEFT JOIN  assignment a ON a.assignment_id = s.assign_id
+ WHERE score > 0 AND time_on_task > 0  AND a.max_points IS NOT NULL GROUP BY s.assign_id, s.user_id`
+
 const fetchSubmissions = db => fetchAll(db)('submission', ['score>?', 'time_on_task>?'], [0, 0], '')
 const fetchStudentMaxScores = db => fetchAll(db)('submission', ['score>?', 'time_on_task>?'], [0, 0], '','assign_id, user_id', 'MAX(score) AS score, *', )
-const fetchCombinedStudentData = db => rawQuery(db)('SELECT  MAX(score) AS score, * FROM submission s LEFT JOIN background_variables bv ON s.user_id =  bv.user_id WHERE score > 0 AND time_on_task > 1 AND s.assign_id < 3000000 GROUP BY s.assign_id, s.user_id')
+const fetchCombinedStudentData = db => rawQuery(db)(combinedStudentDataSQL)
 const fetchAssignments = db => fetchAll(db)('assignment', ['assignment_id=?'], [1], '')
 
 const fetchStudentLastSubmissions = db => fetchAll(db)('submission', )
