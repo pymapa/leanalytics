@@ -12,6 +12,7 @@ class Chart extends Component {
   }
   getData2() {
     return this.props.data.selfEval2.map(submission => {
+      console.log(submission.assign_id);
       return {
         x: submission.assign_id,
         y: this.calculateRelativeScore(submission)
@@ -28,7 +29,6 @@ class Chart extends Component {
   }
   getData4() {
     return this.props.data.selfEval4.map(submission => {
-      console.log(submission.time_on_task)
       return {
         x: submission.assign_id,
         y: this.calculateRelativeScore(submission)
@@ -59,7 +59,7 @@ class Chart extends Component {
           {
             ticks: {
               min: 0,
-              suggestedMax: 120,
+              suggestedMax: 10,
               stepSize: 5
             }
           }
